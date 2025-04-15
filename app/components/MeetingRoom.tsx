@@ -68,37 +68,44 @@ const MeetingRoom = () => {
             </div>
 
             {/* call controls */}
-            <div className="fixed bottom-0 flex w-full items-center justify-center gap-5">
-                <CallControls onLeave={() => router.push(`/`)} />
+            <div className="fixed bottom-0 w-full flex flex-col sm:flex-row items-center justify-center sm:gap-5">
+                {/* First row on mobile, all controls on desktop */}
+                <div className="flex flex-wrap justify-center w-full sm:w-auto py-2 px-1 bg-black/70 sm:bg-transparent rounded-t-lg sm:rounded-none">
+                  <CallControls onLeave={() => router.push(`/`)} />
+                </div>
 
-                <DropdownMenu>
-                <div className="flex items-center">
-                    <DropdownMenuTrigger className="cursor-pointer rounded-2xl bg-[#19232d] px-4 py-2 hover:bg-[#4c535b]  ">
-                    <LayoutList size={20} className="text-white" />
+                {/* Second row on mobile, shown inline on desktop */}
+                <div className="flex justify-center gap-2 w-full sm:w-auto py-2 px-1 bg-black/70 sm:bg-transparent mb-2 sm:mb-0">
+                  <DropdownMenu>
+                    <DropdownMenuTrigger className="cursor-pointer rounded-2xl bg-[#19232d] px-3 py-2 hover:bg-[#4c535b] min-w-[40px] min-h-[40px] flex items-center justify-center">
+                      <LayoutList size={20} className="text-white" />
                     </DropdownMenuTrigger>
-                </div>
-                <DropdownMenuContent className="border-black bg-black text-white">
-                    {['Grid', 'Speaker-Left', 'Speaker-Right'].map((item, index) => (
-                    <div key={index}>
-                        <DropdownMenuItem
-                        onClick={() =>
-                            setLayout(item.toLowerCase() as CallLayoutType)
-                        }
-                        >
-                        {item}
-                        </DropdownMenuItem>
-                        <DropdownMenuSeparator className="border-black" />
+                    <DropdownMenuContent className="border-black bg-black text-white">
+                      {['Grid', 'Speaker-Left', 'Speaker-Right'].map((item, index) => (
+                        <div key={index}>
+                          <DropdownMenuItem
+                            onClick={() =>
+                              setLayout(item.toLowerCase() as CallLayoutType)
+                            }
+                          >
+                            {item}
+                          </DropdownMenuItem>
+                          <DropdownMenuSeparator className="border-black" />
+                        </div>
+                      ))}
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                  
+                  <CallStatsButton />
+                  
+                  <button onClick={() => setShowParticipants((prev) => !prev)}>
+                    <div className="cursor-pointer rounded-2xl bg-[#19232d] px-3 py-2 hover:bg-[#4c535b] min-w-[40px] min-h-[40px] flex items-center justify-center">
+                      <Users size={20} className="text-white" />
                     </div>
-                    ))}
-                </DropdownMenuContent>
-                </DropdownMenu>
-                <CallStatsButton />
-                <button onClick={() => setShowParticipants((prev) => !prev)}>
-                <div className=" cursor-pointer rounded-2xl bg-[#19232d] px-4 py-2 hover:bg-[#4c535b]  ">
-                    <Users size={20} className="text-white" />
+                  </button>
+                  
+                  <EndCallButton />
                 </div>
-                </button>
-                <EndCallButton />
             </div>
          </section>
       )
