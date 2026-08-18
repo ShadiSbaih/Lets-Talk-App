@@ -1,4 +1,4 @@
-# Zoom Clone
+#Let's Talk . Zoom Clone
 
 A full-stack video conferencing web application built with **Next.js 15**, **React 19**, **TypeScript**, **Tailwind CSS**, **GetStream**, and **Clerk**.
 
